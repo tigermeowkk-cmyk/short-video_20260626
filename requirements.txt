@@ -1,4 +1,4 @@
 streamlit
 moviepy==1.0.3
 openai
-pillow
+pillow==9.5.0
