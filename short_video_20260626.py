@@ -102,11 +102,11 @@ def generate_saas_video(user_media_paths, style_id, slogan_text, shop_name, logo
 
     # 動態字幕
     if slogan_text:
-        title_clip = TextClip
+        title_clip = (TextClip(
             slogan_text, fontsize=60, color=cfg["text_color"], font="./fonts/NotoSansTC-Black.ttf",
             stroke_color=cfg["stroke_color"], stroke_width=cfg["stroke_width"],
             size=(900, None), method='caption'
-        ).set_duration(2.5).set_position(cfg["text_pos"])
+        ).set_duration(2.5).set_position(cfg["text_pos"]))
         fade_time = 0.1 if style_id == "viral_vlog" else 0.5
         title_clip = title_clip.fx(vfx.fadein, fade_time)
         final_video = CompositeVideoClip([final_media_clip, title_clip])
