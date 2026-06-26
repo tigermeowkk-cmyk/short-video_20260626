@@ -1,33 +1,23 @@
 import os
-
-import os
+import streamlit as st
 
 # ==========================================
-# 0. 強制設定環境變數 (解決 MoviePy 找不到 ffmpeg 的地雷)
+# 0. 絕對路徑優先設定 (解決 ffmpeg 找不到的問題)
 # ==========================================
+# 這是為了讓 MoviePy 能在 Streamlit Cloud 順利運作
+os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
+os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
+
 if os.name != 'nt':
-    # 強制指定 ImageMagick 與 FFmpeg 的絕對路徑
-    os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
-    os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
-    
-    # 解除 ImageMagick 權限限制
+    # 解除 ImageMagick 對 PDF 的限制
     os.system('sed -i \'s/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/g\' /etc/ImageMagick-6/policy.xml 2>/dev/null')
 
-# 確認一下這行有沒有影響，如果這行會報錯，可以先把這一行註解掉試試
-# os.environ["FFMPEG_BINARY"] = "/usr/bin/ffmpeg"
-
-
-
-import streamlit as st
-import random
-import tempfile
+# --- 重新導入 MoviePy ---
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.video.io.ImageSequenceClip import ImageSequenceClip
-from moviepy.editor import ImageClip, concatenate_videoclips, CompositeVideoClip, TextClip
+from moviepy.editor import ImageClip, concatenate_videoclips, CompositeVideoClip, TextClip, vfx
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 from moviepy.audio.composites.CompositeAudioClip import CompositeAudioClip
-import moviepy.video.fx.all as vfx
-import moviepy.video.fx.all as vfx
 
 # ==========================================
 # 1. 核心設定：產業與風格模板資料庫
