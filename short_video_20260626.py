@@ -1,15 +1,20 @@
 import os
 
+import os
+
 # ==========================================
-# 0. 針對 Linux / Streamlit Cloud 的環境修正
+# 0. 強制設定環境變數 (解決 MoviePy 找不到 ffmpeg 的地雷)
 # ==========================================
-# 檢查是否在 Linux 環境，並強制指定 ImageMagick 的二進位檔案路徑
-if os.name != 'nt':  # 'nt' 代表 Windows，如果不是 Windows 就是 Linux/Mac
+if os.name != 'nt':
+    # 強制指定 ImageMagick 與 FFmpeg 的絕對路徑
     os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
+    os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
     
-    # 某些新版 Linux 的 ImageMagick 限制了安全策略，會禁止 TextClip 渲染文字
-    # 以下指令可以解除 ImageMagick 對於 PDF/TEXT 的讀寫限制
+    # 解除 ImageMagick 權限限制
     os.system('sed -i \'s/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/g\' /etc/ImageMagick-6/policy.xml 2>/dev/null')
+
+# 確認一下這行有沒有影響，如果這行會報錯，可以先把這一行註解掉試試
+# os.environ["FFMPEG_BINARY"] = "/usr/bin/ffmpeg"
 
 
 
