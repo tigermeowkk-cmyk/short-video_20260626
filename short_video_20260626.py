@@ -9,7 +9,7 @@ if os.name != 'nt':  # 'nt' 代表 Windows，如果不是 Windows 就是 Linux/M
     
     # 某些新版 Linux 的 ImageMagick 限制了安全策略，會禁止 TextClip 渲染文字
     # 以下指令可以解除 ImageMagick 對於 PDF/TEXT 的讀寫限制
-    os.system("sed -i 's/rights=/"none/" pattern=/"PDF/"/rights=/"read|write/" pattern=/"PDF/"/g' /etc/ImageMagick-6/policy.xml 2>/dev/null")
+    os.system('sed -i \'s/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/g\' /etc/ImageMagick-6/policy.xml 2>/dev/null')
 
 
 
