@@ -16,10 +16,12 @@ if os.name != 'nt':  # 'nt' 代表 Windows，如果不是 Windows 就是 Linux/M
 import streamlit as st
 import random
 import tempfile
-from moviepy.editor import (
-    ImageClip, VideoFileClip, concatenate_videoclips, 
-    AudioFileClip, CompositeVideoClip, CompositeAudioClip, TextClip
-)
+from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.video.io.ImageSequenceClip import ImageSequenceClip
+from moviepy.editor import ImageClip, concatenate_videoclips, CompositeVideoClip, TextClip
+from moviepy.audio.io.AudioFileClip import AudioFileClip
+from moviepy.audio.composites.CompositeAudioClip import CompositeAudioClip
+import moviepy.video.fx.all as vfx
 import moviepy.video.fx.all as vfx
 
 # ==========================================
