@@ -1,4 +1,10 @@
+import sys
+# 補強 Python 3.14 對舊套件的支援
+import setuptools
+sys.modules['pkg_resources'] = setuptools
+
 import os
+# ... (後面接你原本的 os.environ 設定)
 import streamlit as st
 
 # ==========================================
