@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+import tempfile
 
 # ==========================================
 # 0. 絕對路徑優先設定 (解決 ffmpeg 與 imagemagick 找不到的問題)
