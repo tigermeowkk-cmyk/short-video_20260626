@@ -2,7 +2,7 @@ import os
 import streamlit as st
 
 # ==========================================
-# 0. 絕對路徑優先設定 (解決 ffmpeg 找不到的問題)
+# 0. 絕對路徑優先設定 (解決 ffmpeg 與 imagemagick 找不到的問題)
 # ==========================================
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
@@ -10,12 +10,19 @@ os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 if os.name != 'nt':
     os.system('sed -i \'s/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/g\' /etc/ImageMagick-6/policy.xml 2>/dev/null')
 
-# --- 重新導入 MoviePy ---
-from moviepy.video.io.VideoFileClip import VideoFileClip
-from moviepy.video.io.ImageSequenceClip import ImageSequenceClip
-from moviepy.editor import ImageClip, concatenate_videoclips, CompositeVideoClip, TextClip, vfx
-from moviepy.audio.io.AudioFileClip import AudioFileClip
-from moviepy.audio.composites.CompositeAudioClip import CompositeAudioClip
+# ==========================================
+# 0.1 重新導入 MoviePy (使用 1.0.3 最標準、不踩雷的寫法)
+# ==========================================
+from moviepy.editor import (
+    ImageClip, 
+    VideoFileClip, 
+    concatenate_videoclips, 
+    AudioFileClip, 
+    CompositeVideoClip, 
+    CompositeAudioClip, 
+    TextClip
+)
+import moviepy.video.fx.all as vfx
 
 # ==========================================
 # 1. 核心設定：產業與風格模板資料庫
