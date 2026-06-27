@@ -1,9 +1,15 @@
+# === 🌟 程式啟動第一秒就執行的魔法補丁 ===
+import PIL.Image
+if not hasattr(PIL.Image, 'ANTIALIAS'):
+    PIL.Image.ANTIALIAS = PIL.Image.Resampling.LANCZOS
+# ========================================
+
 import os
 import streamlit as st
 import tempfile
 
 # ==========================================
-# 0. 絕對路徑優先設定 (解決 ffmpeg 與 imagemagick 找不到的問題)
+# 0. 絕對路徑優先設定(解決 ffmpeg 與 imagemagick 找不到的問題)
 # ==========================================
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
