@@ -1,21 +1,13 @@
-import sys
-# 補強 Python 3.14 對舊套件的支援
-import setuptools
-sys.modules['pkg_resources'] = setuptools
-
 import os
-# ... (後面接你原本的 os.environ 設定)
 import streamlit as st
 
 # ==========================================
 # 0. 絕對路徑優先設定 (解決 ffmpeg 找不到的問題)
 # ==========================================
-# 這是為了讓 MoviePy 能在 Streamlit Cloud 順利運作
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 
 if os.name != 'nt':
-    # 解除 ImageMagick 對 PDF 的限制
     os.system('sed -i \'s/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/g\' /etc/ImageMagick-6/policy.xml 2>/dev/null')
 
 # --- 重新導入 MoviePy ---
